@@ -23,8 +23,6 @@
                           "/Users/adam/.gem/ruby/1.8/bin"
                           "/usr/local/mysql/bin")))
 
-;; (require 'color-theme)
-;; (color-theme-initialize)
 ;; (color-theme-github)
 (color-theme-twilight)
 ;; (load (concat dotfiles-dir "vendor/topfunky-theme.el"))
@@ -51,5 +49,21 @@
   (interactive)
   (shell-command-to-string (concat "mate " buffer-file-name)))
 
+;; ack!
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/ack"))
 (require 'ack)
+
+;; mode-compile
+(autoload 'mode-compile "mode-compile" "Command to compile current buffer file based on the major mode" t)
+(global-set-key "\C-cc" 'mode-compile)
+(autoload 'mode-compile-kill "mode-compile"
+      "Command to kill a compilation launched by `mode-compile'" t)
+(global-set-key "\C-ck" 'mode-compile-kill)
+
+;; dired-sort
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/dired-sort-map"))
+(require 'dired-sort-map)
+
+;; yasnippet
+(setq yas/root-directory (concat dotfiles-dir "snippets"))
+(yas/load-directory yas/root-directory)

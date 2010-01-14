@@ -10,7 +10,15 @@
 
 (dolist (r `((?i (file . ,(concat dotfiles-dir "init.el")))
              (?b (file . ,(concat dotfiles-dir "starter-kit-bindings.el")))
-             (?r (file . ,(concat dotfiles-dir "starter-kit-registers.el")))))
+             (?r (file . ,(concat dotfiles-dir "starter-kit-registers.el")))
+             (?e (file . ,(concat dotfiles-dir "adam.el")))
+             (?s (file . ,(concat "~/Desktop/Do/sifter")))
+             (?w (file . ,(concat "/Volumes/Work")))
+             (?I (file . ,(concat "~/Desktop/In")))
+             (?D (file . ,(concat "~/Desktop/Do")))
+             (?c (file . ,(concat "~/Create")))
+             (?h (file . ,(concat "~/dev/homebrew")))
+             (?S (file . ,(concat "~/dev/sources")))))
   (set-register (car r) (cadr r)))
 
 (provide 'starter-kit-registers)
