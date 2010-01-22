@@ -67,3 +67,20 @@
 ;; yasnippet
 (setq yas/root-directory (concat dotfiles-dir "snippets"))
 (yas/load-directory yas/root-directory)
+
+;; run handy daemons
+(defun run-daemon (command name)
+  "Run COMMAND asynchronously in a buffer named NAME"
+  (interactive)
+  (let ((buffer-name (format "*%s*" name))
+        (cmd (format "%s &" command)))
+    (shell-command cmd buffer-name)))
+
+(defun run-memcached ()
+  (interactive)
+  (run-daemon "memcached -vv" "memcached"))
+
+(defun run-redis ()
+  (interactive)
+  (run-daemon "redis-server ~/dev/homebrew/etc/redis.conf" "redis"))
+
