@@ -23,8 +23,9 @@
                           "/Users/adam/.gem/ruby/1.8/bin"
                           "/usr/local/mysql/bin")))
 
-;; (color-theme-github)
-(color-theme-twilight)
+(load (concat dotfiles-dir "vendor/color-theme-github.el"))
+(color-theme-github)
+;; (color-theme-twilight)
 ;; (load (concat dotfiles-dir "vendor/topfunky-theme.el"))
 ;; (color-theme-topfunky)
 

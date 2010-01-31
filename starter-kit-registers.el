@@ -19,6 +19,7 @@
              (?c (file . ,(concat "~/Create")))
              (?h (file . ,(concat "~/dev/homebrew")))
              (?g (file . ,(concat "~/.gem/ruby/1.8/gems")))
+             (?c (file . ,(concat "~/Create/ctdr_dotorg")))
              (?S (file . ,(concat "~/dev/sources")))))
   (set-register (car r) (cadr r)))
 
