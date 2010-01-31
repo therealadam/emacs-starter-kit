@@ -84,3 +84,6 @@
   (interactive)
   (run-daemon "redis-server ~/dev/homebrew/etc/redis.conf" "redis"))
 
+;; tiling windows
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/emacsd-tile"))
+(require 'emacsd-tile)
