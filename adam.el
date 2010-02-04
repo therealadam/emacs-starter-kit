@@ -24,21 +24,19 @@
                           "/usr/local/mysql/bin")))
 
 (load (concat dotfiles-dir "vendor/color-theme-github.el"))
-(color-theme-github)
-;; (color-theme-twilight)
-;; (load (concat dotfiles-dir "vendor/topfunky-theme.el"))
-;; (color-theme-topfunky)
+(load (concat dotfiles-dir "vendor/color-theme-vibrant-ink.el"))
+;; (color-theme-github)
+(color-theme-vibrant-ink)
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
 (require 'textmate)
-(textmate-mode)
+(textmate-mode t)
 
 (setq default-frame-alist
       '((top . 0)
         (height . 61)
         (width . 85)))
 
-;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/jump.el"))
 (require 'rinari)
 
 ;; Erlang!
@@ -51,7 +49,6 @@
   (shell-command-to-string (concat "mate " buffer-file-name)))
 
 ;; ack!
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/ack"))
 (require 'ack)
 
 ;; mode-compile
@@ -62,12 +59,7 @@
 (global-set-key "\C-ck" 'mode-compile-kill)
 
 ;; dired-sort
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/dired-sort-map"))
 (require 'dired-sort-map)
-
-;; yasnippet
-(setq yas/root-directory (concat dotfiles-dir "snippets"))
-(yas/load-directory yas/root-directory)
 
 ;; run handy daemons
 (defun run-daemon (command name)
