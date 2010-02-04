@@ -86,5 +86,78 @@
   (run-daemon "redis-server ~/dev/homebrew/etc/redis.conf" "redis"))
 
 ;; tiling windows
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/emacsd-tile"))
 (require 'emacsd-tile)
+
+;; line numbering
+(require 'linum)
+(global-linum-mode 1)
+(setq linum-format "%3d  ")
+
+;; make ruby-mode better, courtsey of Chad Humphries
+(require 'ruby-hacks)
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (add-hook 'write-file-functions
+                      '(lambda()
+                         (save-excursion
+                           (untabify (point-min) (point-max)))))
+            (set (make-local-variable 'indent-tabs-mode) 'nil)
+            (set (make-local-variable 'tab-width) 2)
+            (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)
+            (require 'ruby-electric)
+            (ruby-electric-mode t)
+            (ruby-hs-minor-mode t)))
+
+; where'd this go?
+(defun ruby-reindent-then-newline-and-indent ()
+  "Reindents the current line then creates an indented newline."
+  (interactive "*")
+  (newline)
+  (save-excursion
+    (end-of-line 0)
+    (indent-according-to-mode)
+    (delete-region (point) (progn (skip-chars-backward " \t") (point))))
+  (when (ruby-previous-line-is-comment)
+      (insert "# "))
+  (indent-according-to-mode))
+
+(defun ruby-previous-line-is-comment ()
+  "Returns `t' if the previous line is a Ruby comment."
+  (save-excursion
+    (forward-line -1)
+    (ruby-line-is-comment)))
+
+(defun ruby-line-is-comment ()
+  "Returns `t' if the current line is a Ruby comment."
+  (save-excursion
+    (beginning-of-line)
+    (search-forward "#" (point-at-eol) t)))
+
+;; better hide-show
+(require 'hideshowvis)
+(autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
+(add-hook 'text-mode-hook 'hideshowvis-enable)
+
+;; because I have taste
+(setq-default tab-width 2)
+
+;; TODO: update ruby-mode and remove this
+(defun ruby-insert-end ()
+  (interactive)
+  (insert "end")
+  (ruby-indent-line t)
+  (end-of-line))
+
+;; smex
+(setq smex-save-file "~/.emacs.d/smex.save")
+(require 'smex)
+(add-hook 'after-init-hook 'smex-initialize)
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c M-x") 'smex-update-and-run)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(require 'unit-test)
+(require 'autotest)
